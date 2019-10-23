@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS flexbox</title>
+        <link href="prism.css" rel="stylesheet" type="text/css"/>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/png" href="./favicon.png">
+    </head>
+    <body>
+        <nav id="navbar">
+            <header>Tic Tac Toe<br/>Game<br>Documentation</header>
+            <ul>
+                <li><a class="nav-link" href="#game_rules" rel="internal">Game rules</a></li>
+                <li><a class="nav-link" href="#program_flow" rel="internal">Program flow</a></li>
+                <li><a class="nav-link" href="#sample_run" rel="internal">Sample run</a></li>
+                <li><a class="nav-link" href="#source_code" rel="internal">Source code</a></li>
+                <li><a class="nav-link" href="#tests" rel="internal">Tests</a></li>
+            </ul>
+        </nav>
+        <main id="main-doc">
+            <h1>Tic Tac Toe</h1>
+            <section class="main-section" id="game_rules">
+                <header>Game rules:</header>
+                <article>
+                    <p>Tic Tac Toe is an old paper and pencil game for two players, X and O, who take turns marking the
+                        spaces in a 3x3 grid.</p>
+                    <ul>
+                        <li>Each player takes a turn placing his character (X or O) into one of the nine squares</li>
+                        <li>A player cannot place his symbol in a square that is already occupied by a symbol</li>
+                        <li>The game ends when a player creates a winning combination of his symbols or when there are no empty squares remaining</li>
+                        <li>The player who succeeds in placing three of their marks in a horizontal, vertical, or
+                            diagonal row is the winner </li>
+                        <li>When the board fills up with neither player winning, the game ends in a draw</li>
+                        <li>It is up to the players who starts first and which mark they have</li>
+                    </ul>
+                </article>
+            </section>
+            <section class="main-section" id="program_flow">
+                <header>Program flow:</header>
+                <article>
+                    <p>The following flow chart has been created and used as a basis for designing the program logic.</p>
+                    <img src="./tic_tac_toe.svg" alt="program flow diagram">
+                </article>
+            </section>
+            <section class="main-section" id="sample_run">
+                <header>Sample run:</header>
+                <article>
+                    <p>Here is what the user sees when they run the Tic Tac Toe program. The following example game is
+                        won by the first player, X:</p>
+                    <pre><code class="language-html">
+
+        Welcome to Tic Tac Toe game.
+
+           |   |
+        --- --- ---
+           |   |
+        --- --- ---
+           |   |
+
+
+        Player 1 do you want to be 'X' or 'O'? x
+        Player 2 you are 'O' then.
+
+        What is your move Mr X (row, col)? 1,3
+
+           |   | X
+        --- --- ---
+           |   |
+        --- --- ---
+           |   |
+
+
+        What is your move Mr O (row, col)? 3,2
+
+           |   | X
+        --- --- ---
+           |   |
+        --- --- ---
+           | O |
+
+
+        What is your move Mr X (row, col)? 2,2
+
+           |   | X
+        --- --- ---
+           | X |
+        --- --- ---
+           | O |
+
+
+        What is your move Mr O (row, col)? 3,3
+
+           |   | X
+        --- --- ---
+           | X |
+        --- --- ---
+           | O | O
+
+
+        What is your move Mr X (row, col)? 3,1
+
+           |   | X
+        --- --- ---
+           | X |
+        --- --- ---
+         X | O | O
+
+        Congratulations, X's has won the game!
+        Would you like to play again (yes/no)? no
+        Bye bye!
+
+                    </code></pre>
+                </article>
+            </section>
+            <section class="main-section" id="source_code">
+                <header>Source code:</header>
+                <article>
+                    <p>In a new text editor window, copy and paste the following source code and save it as
+                        tic_tac_toe_game.py. Then run the program in the terminal.</p>
+                    <pre><code class="language-python">
+
+        # ------------------------------------->     GAME     <-------------------------------------
+
+        import re
+
+
+        # check if player has won
+        def check_score(board):
+            # variable initialization
+            is_winner = False
+            who_won = None
+
+            # Horizontal check:
+            for row in range(3):
+                if board[row][0] == board[row][1] and board[row][0] == board[row][2] and board[row][0] != " ":
+                    is_winner = True
+                    who_won = board[row][0]
+                    break
+
+            # Vertical check:
+            for column in range(3):
+                if board[0][column] == board[1][column] and board[0][column] == board[2][column] and board[0][column] != " ":
+                    is_winner = True
+                    who_won = board[0][column]
+                    break
+
+            # Diagonal check:
+            if board[0][0] == board[1][1] and board[0][0] == board[2][2] and board[0][0] != " ":
+                is_winner = True
+                who_won = board[0][0]
+
+            if board[0][2] == board[1][1] and board[0][2] == board[2][0] and board[0][2] != " ":
+                is_winner = True
+                who_won = board[0][2]
+
+            return is_winner, who_won
+
+
+        # insert mark at chosen position
+        def insert_player(board, player_coordinates, player):
+            # split the user input coordinates to get row and column separately
+            coordinates_list = player_coordinates.split(",")
+            # take into account indexing from zero by subtracting 1
+            row = int(coordinates_list[0]) - 1
+            column = int(coordinates_list[1]) - 1
+
+            # check position availability, if available place a mark on the board and draw updated board
+            if board[row][column] == " ":
+                board[row][column] = player
+                draw_a_board_game(board)
+                return True
+            else:
+                return False
+
+
+        # function that asks for user position
+        def ask_for_position(player, board):
+            player_coordinates = ""
+            # regexp check for correct input format, ask until correct
+            while not re.search("^[1-3], ?[1-3]$", player_coordinates):
+                player_coordinates = input("\nWhat is your move Mr {} (row, col)? ".format(player))
+
+            # try to insert letter at chosen position
+            inserted = insert_player(board, player_coordinates, player)
+            # if position is taken ask for another position
+            if not inserted:
+                print("This position is already taken. Choose another position.")
+                return ask_for_position(player, board)
+
+            # return updated board (including users move)
+            return board
+
+
+        # board drawing function
+        def draw_a_board_game(board):
+            board_flat_list = []
+
+            # board flattening list of list
+            for row in board:
+                for element in row:
+                    board_flat_list.append(element)
+
+            # board visualization for the user
+            print("\n {} | {} | {} \n--- --- --- \n {} | {} | {} \n--- --- --- \n {} | {} | {} \n".format(*board_flat_list))
+
+
+        # main function of the game
+        def play():
+            print("Welcome to Tic Tac Toe game.")
+            # empty board initialization
+            board = [[" ", " ", " "],
+                     [" ", " ", " "],
+                     [" ", " ", " "]]
+
+            # call the board drawing function (shows empty board at the start)
+            draw_a_board_game(board)
+
+            # ask user which letter they want to be
+            player1 = ""
+            while player1 not in ("X", "O"):
+                player1 = input("\nPlayer 1 do you want to be 'X' or 'O'? ").upper()
+
+            # second player is automatically the other letter
+            player2 = ""
+            if player1 == "O":
+                player2 = "X"
+                print("Player 2 you are 'X' then.")
+            else:
+                player2 = "O"
+                print("Player 2 you are 'O' then.")
+
+            # ask player1 for a first position
+            updated_board = ask_for_position(player1, board)
+
+            # variable initialization
+            is_winner = False
+            who_won = None
+
+            # ask each user for a new position until board is full
+            for i in range(4):
+                for player in [player2, player1]:
+                    # ask for position
+                    updated_board = ask_for_position(player, updated_board)
+                    # after move check for winner
+                    is_winner, who_won = check_score(updated_board)
+                    # if someone wins stop asking for more moves even if the board is still not full
+                    if is_winner:
+                        break
+                if is_winner:
+
+                    break
+
+            # depending on the score show appropriate message to the user/s
+            if is_winner:
+                print("Congratulations, {}'s has won the game!".format(who_won))
+            else:
+                print("No winner this time.")
+
+            # ask users if they want to play again
+            play_again = ""
+            while play_again not in ("yes", "no"):
+                play_again = input("Would you like to play again (yes/no)? ")
+
+            # if want to play - resume the game, otherwise end it
+            if play_again == "yes":
+                return play()
+
+            print("Bye bye!")
+
+
+        if __name__ == '__main__':
+            play()
+
+                    </code></pre>
+                </article>
+            </section>
+            <section class="main-section" id="tests">
+                <header>Tests:</header>
+                <article>
+                    <p>This section contains the source code of a few unit tests that have been written to verify a correct operation of the code. </p>
+                    <pre><code class="language-python">
+
+        import unittest
+        import mock
+
+        from tic_tac_toe_game import check_score, insert_player
+
+
+        # tests for check_score function
+        class TestCheckScore(unittest.TestCase):
+
+            # test if game is still in progress (empty squares remaining)
+            def test_game_in_progress(self):
+                boards = [
+                    [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']],
+                    [[' ', 'O', ' '], [' ', ' ', 'O'], ['X', ' ', ' ']],
+                    [['X', 'X', ' '], ['X', 'O', 'O'], ['O', 'O', 'X']],
+                ]
+
+                for board in boards:
+                    is_winner, who_won = check_score(board)
+                    self.assertFalse(is_winner)
+                    self.assertIsNone(who_won)
+
+            # test for a correct winner
+            def test_weve_got_a_winner(self):
+                boards_x = [
+                    [['X', ' ', ' '], [' ', 'X', 'O'], [' ', ' ', 'X']],
+                    [['O', ' ', 'X'], [' ', 'X', ' '], ['X', ' ', ' ']],
+                    [[' ', 'X', ' '], [' ', 'X', ' '], ['O', 'X', ' ']],
+                    [[' ', 'O', ' '], ['X', 'X', 'X'], ['O', ' ', ' ']],
+                ]
+
+                boards_o = [
+                    [['O', ' ', ' '], [' ', 'O', 'X'], [' ', ' ', 'O']],
+                    [['X', ' ', 'O'], [' ', 'O', ' '], ['O', ' ', ' ']],
+                    [[' ', 'O', ' '], [' ', 'O', ' '], ['X', 'O', ' ']],
+                    [[' ', 'X', ' '], ['O', 'O', 'O'], ['X', ' ', ' ']],
+                ]
+
+                for board in boards_x:
+                    is_winner, who_won = check_score(board)
+                    self.assertTrue(is_winner)
+                    self.assertEqual(who_won, "X")
+
+                for board in boards_o:
+                    is_winner, who_won = check_score(board)
+                    self.assertTrue(is_winner)
+                    self.assertEqual(who_won, "O")
+
+            # test for no winner
+            def test_no_winner(self):
+                boards = [
+                    [['X', 'O', 'X'], ['X', 'O', 'O'], ['O', 'X', 'X']],
+                    [['O', 'X', 'X'], ['X', 'O', 'O'], ['O', 'O', 'X']]
+                ]
+
+                for board in boards:
+                    is_winner, who_won = check_score(board)
+                    self.assertFalse(is_winner)
+                    self.assertIsNone(who_won)
+
+
+        draw_a_board_game_mock = mock.Mock()
+
+
+        # tests for insert_player function
+        class TestInsertPlayer(unittest.TestCase):
+
+            # mock the draw_a_board_game function as it would be unnecessarily invoked each time the insert_player function
+            # is called
+            @mock.patch('tic_tac_toe_game.draw_a_board_game', draw_a_board_game_mock)
+            # test for correct symbol insertion (allow when the square is empty)
+            def test_insert_ok(self):
+                b1 = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+                coords = '1,2'
+                player = 'O'
+                inserted = insert_player(b1, coords, player)
+                self.assertTrue(inserted)
+                self.assertEqual(b1[0][1], player)
+
+                b2 = [[' ', 'O', 'X'], ['X', ' ', 'O'], ['O', ' ', ' ']]
+                coords = '3, 3'
+                player = 'X'
+                inserted = insert_player(b2, coords, player)
+                self.assertTrue(inserted)
+                self.assertEqual(b2[2][2], player)
+
+            # test for falsy symbol insertion (when the square is already occupied)
+            def test_insert_not_ok(self):
+                b1 = [[' ', 'X', ' '], ['O', 'X', ' '], [' ', 'O', ' ']]
+                coords = '1,2'
+                player = 'O'
+                inserted = insert_player(b1, coords, player)
+                self.assertFalse(inserted)
+                self.assertEqual(b1[0][1], 'X')
+
+                b2 = [[' ', 'O', 'X'], ['X', ' ', 'O'], ['O', ' ', 'X']]
+                coords = '3, 3'
+                player = 'X'
+                inserted = insert_player(b2, coords, player)
+                self.assertFalse(inserted)
+                self.assertEqual(b2[2][2], "X")
+
+                    </code></pre>
+                </article>
+            </section>
+        </main>
+        <script src="./prism.js"></script>
+    </body>
+</html>

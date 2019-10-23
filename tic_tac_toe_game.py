@@ -71,25 +71,6 @@ def ask_for_position(player, board):
     return board
 
 
-# def ask_for_position(player, board):
-#     player_coordinates = ""
-#     while not re.search("^[1-3], ?[1-3]$", player_coordinates):
-#         player_coordinates = input("\nWhat is your move Mr {} (row, col)? ".format(player))
-#
-#     coordinates_list = player_coordinates.split(",")
-#     row = int(coordinates_list[0]) - 1
-#     column = int(coordinates_list[1]) - 1
-#
-#     if board[row][column] == " ":
-#         board[row][column] = player
-#         draw_a_board_game(board)
-#     else:
-#         print("This position is already taken. Choose another position.")
-#         return ask_for_position(player, board)
-#
-#     return board
-
-
 # board drawing function
 def draw_a_board_game(board):
     board_flat_list = []
@@ -146,6 +127,7 @@ def play():
             if is_winner:
                 break
         if is_winner:
+
             break
 
     # depending on the score show appropriate message to the user/s
@@ -157,11 +139,13 @@ def play():
     # ask users if they want to play again
     play_again = ""
     while play_again not in ("yes", "no"):
-        play_again = input("Would you like to play again? yes/no ")
+        play_again = input("Would you like to play again (yes/no)? ")
 
     # if want to play - resume the game, otherwise end it
     if play_again == "yes":
         return play()
+
+    print("Bye bye!")
 
 
 if __name__ == '__main__':
