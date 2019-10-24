@@ -22,7 +22,7 @@ main {
 h1 {
     font-family: 'Staatliches', cursive;
     text-align: center;
-    font-size: 40px;
+    font-size: 50px !important;
     padding-top: 30px;
 }
 
@@ -33,7 +33,7 @@ p {
 
 section header {
     font-family: 'Staatliches', cursive;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 900;
     font-style: italic;
     padding: 50px 0px 5px 0px;
@@ -48,7 +48,7 @@ nav {
     color: white;
     background-color: rgb(45, 45, 45);
     font-family: 'Staatliches', cursive;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
     width: 270px;
     height: 100%;
@@ -89,7 +89,7 @@ nav .nav-link {
 }
 
 nav .nav-link:hover {
-    font-size: 16px;
+    font-size: 19px;
     color: red;
     padding: 9px;
 }
