@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tic Tac Toe</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="prism.css" rel="stylesheet" type="text/css"/>
         <link href="style.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body data-spy="scroll" data-target="#navbar" data-offset="75">
         <nav id="navbar">
             <header>Tic Tac Toe<br/>Game<br>Documentation</header>
             <ul>
@@ -20,7 +25,7 @@
         </nav>
         <main id="main-doc">
             <h1>Tic Tac Toe</h1>
-            <section class="main-section" id="game_rules">
+            <section id="game_rules">
                 <header>Game rules:</header>
                 <article>
                     <p>Tic Tac Toe is an old paper and pencil game for two players, X and O, who take turns marking the
@@ -36,14 +41,14 @@
                     </ul>
                 </article>
             </section>
-            <section class="main-section" id="program_flow">
+            <section id="program_flow">
                 <header>Program flow:</header>
                 <article>
                     <p>The following flow chart has been created and used as a basis for designing the program logic.</p>
                     <img src="./tic_tac_toe.svg" alt="program flow diagram">
                 </article>
             </section>
-            <section class="main-section" id="sample_run">
+            <section id="sample_run">
                 <header>Sample run:</header>
                 <article>
                     <p>Here is what the user sees when they run the Tic Tac Toe program. The following example game is
@@ -113,7 +118,7 @@
                     </code></pre>
                 </article>
             </section>
-            <section class="main-section" id="source_code">
+            <section id="source_code">
                 <header>Source code:</header>
                 <article>
                     <p>In a new text editor window, copy and paste the following source code and save it as
@@ -275,7 +280,7 @@
                     </code></pre>
                 </article>
             </section>
-            <section class="main-section" id="tests">
+            <section id="tests">
                 <header>Tests:</header>
                 <article>
                     <p>This section contains the source code of a few unit tests that have been written to verify a correct operation of the code. </p>

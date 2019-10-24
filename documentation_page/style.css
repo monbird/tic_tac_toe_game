@@ -23,7 +23,7 @@ h1 {
     font-family: 'Staatliches', cursive;
     text-align: center;
     font-size: 40px;
-    margin-bottom: 0px;
+    padding-top: 30px;
 }
 
 p {
@@ -88,8 +88,14 @@ nav .nav-link {
     transition: transform .1s ease-in-out;
 }
 
-nav li:hover {
-    font-size: 15px;
+nav .nav-link:hover {
+    font-size: 16px;
+    color: red;
+    padding: 9px;
+}
+
+nav .nav-link.active {
+   color: yellow;
 }
 
 img {
@@ -123,7 +129,7 @@ pre {
         display: none;
     }
 
-    #main-doc {
+    main {
         margin-left: 20px;
         margin-right: 20px;
     }
