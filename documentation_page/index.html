@@ -121,7 +121,7 @@
          X | O | O
 
         Congratulations, X's has won the game!
-        Would you like to play again (yes/no)? no
+        Would you like to play again (YES/NO)? no
         Bye bye!
 
                     </code></pre>
@@ -130,8 +130,7 @@
             <section id="source_code">
                 <header>Source code:</header>
                 <article>
-                    <p>In a new text editor window, copy and paste the following source code and save it as
-                        tic_tac_toe_game.py. Then run the program in the terminal.</p>
+                    <p>This section includes the source code of the game along with its comments.</p>
                     <pre><code class="language-python">
 
         # ------------------------------------->     GAME     <-------------------------------------
@@ -230,7 +229,7 @@
             # call the board drawing function (shows empty board at the start)
             draw_a_board_game(board)
 
-            # ask user which letter they want to be
+            # ask user which letter they want to be and check input validation
             player1 = ""
             while player1 not in ("X", "O"):
                 player1 = input("\nPlayer 1 do you want to be 'X' or 'O'? ").upper()
@@ -274,10 +273,11 @@
             # ask users if they want to play again
             play_again = ""
             while play_again not in ("yes", "no"):
-                play_again = input("Would you like to play again (yes/no)? ")
+                play_again = input("Would you like to play again (YES/NO)? ").lower()
 
             # if want to play - resume the game, otherwise end it
             if play_again == "yes":
+                print("\n---------------------------->>>  NEW GAME <<<----------------------------\n")
                 return play()
 
             print("Bye bye!")
@@ -292,7 +292,8 @@
             <section id="tests">
                 <header>Tests:</header>
                 <article>
-                    <p>This section contains the source code of a few unit tests that have been written to verify a correct operation of the code. </p>
+                    <p>This section contains the source code of a few unit tests that have been written to verify a
+                        correct operation of the code. </p>
                     <pre><code class="language-python">
 
         import unittest

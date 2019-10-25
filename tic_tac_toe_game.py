@@ -56,7 +56,7 @@ def insert_player(board, player_coordinates, player):
 # function that asks for user position
 def ask_for_position(player, board):
     player_coordinates = ""
-    # regexp check for correct input format, ask until correct
+    # regexp checks for correct input format, ask until correct
     while not re.search("^[1-3], ?[1-3]$", player_coordinates):
         player_coordinates = input("\nWhat is your move Mr {} (row, col)? ".format(player))
 
@@ -95,7 +95,7 @@ def play():
     # call the board drawing function (shows empty board at the start)
     draw_a_board_game(board)
 
-    # ask user which letter they want to be
+    # ask user which letter they want to be and check input validation
     player1 = ""
     while player1 not in ("X", "O"):
         player1 = input("\nPlayer 1 do you want to be 'X' or 'O'? ").upper()
@@ -139,10 +139,11 @@ def play():
     # ask users if they want to play again
     play_again = ""
     while play_again not in ("yes", "no"):
-        play_again = input("Would you like to play again (yes/no)? ")
+        play_again = input("Would you like to play again (YES/NO)? ").lower()
 
     # if want to play - resume the game, otherwise end it
     if play_again == "yes":
+        print("\n---------------------------->>>  NEW GAME <<<----------------------------\n")
         return play()
 
     print("Bye bye!")
