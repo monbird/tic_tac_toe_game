@@ -1,5 +1,5 @@
 # Tic Tac Toe
 
-This project is a computer implementation of an old pen and paper Tic Tac Toe game written in Python 3.
+This project is a computer implementation of a popular pen & paper 2-player Tic Tac Toe game along with its documentation.
 
-To view project's documentation click [here](http://monbird.com/tic-tac-toe).
+To view completed project click [here](http://monbird.com/tic-tac-toe).
